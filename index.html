@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Technology Feeds</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Tech Update Feeds</strong></a>
+									<ul class="icons">
+										<li><a href="https://x.com/sbliltune" class="icon brands fa-twitter"><span class="label">x</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Banner -->
+								<section id="banner">
+									<div class="content">
+										<header>
+											<h1>The Feed for Tech Minds.</h1>
+											<p>Discover app updates, gadget trends, tips, and security tricks you can actually use.</p>
+										</header>
+										<p>Explore breaking updates and fresh insights on everything from innovative gadgets to the newest software releases, cybersecurity essentials, and global tech trends, Whether you’re dipping your toes or diving deep.</p>
+										<ul class="actions">
+											<li><a href="#" class="button big">Learn More</a></li>
+										</ul>
+									</div>
+									<span class="image object">
+										<img src="images/pic10.jpg" alt="" />
+									</span>
+								</section>
+
+							
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Latest Articles</h2>
+									</header>
+									<div class="posts" id="news-posts">
+										
+									</div>
+								</section>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+<script>
+  fetch("articles.json")
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById("news-posts");
+
+	  function smartSummary(text, fallbackLength = 150) {
+  if (!text) return "";
+  // Look for the first sentence end
+  const sentenceEnd = text.indexOf('.') + 1;
+  if (sentenceEnd > 20 && sentenceEnd <= fallbackLength) {
+    return text.slice(0, sentenceEnd).trim();
+  }
+  // If no good sentence, fall back to first 150 characters
+  return text.length > fallbackLength ? text.slice(0, fallbackLength).trim() + "..." : text;
+}
+      data.forEach((article, index) => {
+        const post = document.createElement("article");
+        const defaultImage = `images/pic0${(index % 6) + 1}.jpg`; // Rotate 6 template images
+        post.innerHTML = `
+          <a href="${article.url}" class="image" target="_blank">
+            <img src="${article.image_url || defaultImage}" alt="Article image" />
+          </a>
+          <h3>${article.title}</h3>
+          <p>${smartSummary(article.summary)}</p>
+          <ul class="actions">
+            <li><a href="${article.url}" class="button" target="_blank">More</a></li>
+          </ul>
+        `;
+        container.appendChild(post);
+      });
+    });
+</script>
+
+
+	</body>
+</html>
